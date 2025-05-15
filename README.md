@@ -100,7 +100,8 @@ This is a tutorial project of [Pocket Flow](https://github.com/The-Pocket/Pocket
 5. Generate a complete codebase tutorial by running the main script:
     ```bash
     # Analyze a GitHub repository
-    python main.py --repo https://github.com/username/repo --include "*.py" "*.js" --exclude "tests/*" --max-size 50000
+    python main.py --repo https://github.com/username/repo --include "*.py" "*.ts" "*.js" --exclude "tests/*" --max-size 50000
+    python main.py --dir /media/all/Media/scripts/trailarr2 --include "*.py" "*.ts" --exclude "tests/*" "docs/*" "frontend-build/*" --max-size 50000
 
     # Or, analyze a local directory
     python main.py --dir /path/to/your/codebase --include "*.py" --exclude "*test*"

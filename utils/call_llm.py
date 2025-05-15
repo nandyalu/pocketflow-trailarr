@@ -25,7 +25,8 @@ logger.addHandler(file_handler)
 cache_file = "llm_cache.json"
 
 
-# By default, we Google Gemini 2.5 pro, as it shows great performance for code understanding
+# By default, we Google Gemini 2.5 pro,
+# as it shows great performance for code understanding
 def call_llm(prompt: str, use_cache: bool = True) -> str:
     # Log the prompt
     logger.info(f"PROMPT: {prompt}")
@@ -38,8 +39,8 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
             try:
                 with open(cache_file, "r") as f:
                     cache = json.load(f)
-            except:
-                logger.warning(f"Failed to load cache, starting with empty cache")
+            except Exception as e:
+                logger.warning(f"Failed to load cache: {e}")
 
         # Return from cache if exists
         if prompt in cache:
@@ -58,9 +59,9 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
     client = genai.Client(
         api_key=os.getenv("GEMINI_API_KEY", ""),
     )
-    model = os.getenv("GEMINI_MODEL", "gemini-2.5-pro-exp-03-25")
-    # model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-preview-04-17")
-    
+    # model = os.getenv("GEMINI_MODEL", "gemini-2.5-pro-exp-03-25")
+    model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash-preview-04-17")
+
     response = client.models.generate_content(model=model, contents=[prompt])
     response_text = response.text
 
@@ -75,7 +76,8 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
             try:
                 with open(cache_file, "r") as f:
                     cache = json.load(f)
-            except:
+            except Exception as e:
+                logger.warning(f"Failed to load cache: {e}")
                 pass
 
         # Add to cache and save
@@ -86,7 +88,7 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
         except Exception as e:
             logger.error(f"Failed to save cache: {e}")
 
-    return response_text
+    return response_text  # type: ignore
 
 
 # # Use Azure OpenAI
@@ -174,7 +176,7 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #     # OpenRouter API configuration
 #     api_key = os.getenv("OPENROUTER_API_KEY", "")
 #     model = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
-    
+
 #     headers = {
 #         "Authorization": f"Bearer {api_key}",
 #     }
@@ -198,9 +200,9 @@ def call_llm(prompt: str, use_cache: bool = True) -> str:
 #         response_text = response.json()["choices"][0]["message"]["content"]
 #     except Exception as e:
 #         error_msg = f"Failed to parse OpenRouter response: {e}; Response: {response.text}"
-#         logger.error(error_msg)        
+#         logger.error(error_msg)
 #         raise Exception(error_msg)
-    
+
 
 #     # Log the response
 #     logger.info(f"RESPONSE: {response_text}")
