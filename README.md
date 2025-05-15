@@ -70,6 +70,8 @@ This is a tutorial project of [Pocket Flow](https://github.com/The-Pocket/Pocket
 
 - [SmolaAgents](https://the-pocket.github.io/PocketFlow-Tutorial-Codebase-Knowledge/SmolaAgents) - Build tiny AI agents that punch way above their weight class!
 
+- [Trailarr](./docs/Trailarr/index.md) - Trailarr is a Docker application to download and manage trailers for your Radarr and Sonarr libraries.
+
 - Showcase Your AI-Generated Tutorials in [Discussions](https://github.com/The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge/discussions)!
 
 ## 🚀 Getting Started
